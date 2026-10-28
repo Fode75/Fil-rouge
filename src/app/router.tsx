@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { RequireAuth } from "./guards";
 import { PublicLayout } from "../layouts/PublicLayout";
 import { UserLayout } from "../layouts/UserLayout";
+import { AdminLayout } from "../layouts/AdminLayout";
 import { HomePage } from "../pages/public/HomePage";
 import { DonationCriteriaPage } from "../pages/public/DonationCriteriaPage";
 import { PracticalInfoPage } from "../pages/public/PracticalInfoPage";
@@ -18,11 +19,16 @@ import { PlanningPage } from "../pages/user/PlanningPage";
 import { RegistrationsPage } from "../pages/user/RegistrationsPage";
 import { ShiftsPage } from "../pages/user/ShiftsPage";
 import { ProfilePage } from "../pages/user/ProfilePage";
-// L'espace /administration est pris en charge par l'autre développeur.
+import AdminDashboardPage from "../pages/admin/AdminDashboardPage";
+import AdminWorkshopsPage from "../pages/admin/AdminWorkshopsPage";
+import AdminItemsPage from "../pages/admin/AdminItemsPage";
+import AdminRegistrationsPage from "../pages/admin/AdminRegistrationsPage";
+import AdminUsersPage from "../pages/admin/AdminUsersPage";
 
 export function AppRoutes() {
   return (
     <Routes>
+      {/* Espace public */}
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />
         <Route path="criteres-de-don" element={<DonationCriteriaPage />} />
@@ -35,6 +41,8 @@ export function AppRoutes() {
         <Route path="desinscription/:token" element={<UnsubscribePage />} />
         <Route path="403" element={<ForbiddenPage />} />
       </Route>
+
+      {/* Espace personnel */}
       <Route element={<RequireAuth />}>
         <Route path="espace-personnel" element={<UserLayout />}>
           <Route index element={<DashboardPage />} />
@@ -44,9 +52,20 @@ export function AppRoutes() {
           <Route path="profil" element={<ProfilePage />} />
         </Route>
       </Route>
-      {/* 404 global — capte toutes les URLs non reconnues */}
+
+      {/* Espace administration */}
+      <Route element={<RequireAuth />}>
+        <Route path="administration" element={<AdminLayout />}>
+          <Route index element={<AdminDashboardPage />} />
+          <Route path="ateliers" element={<AdminWorkshopsPage />} />
+          <Route path="objets" element={<AdminItemsPage />} />
+          <Route path="inscriptions" element={<AdminRegistrationsPage />} />
+          <Route path="utilisateurs" element={<AdminUsersPage />} />
+        </Route>
+      </Route>
+
+      {/* 404 global */}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
-
