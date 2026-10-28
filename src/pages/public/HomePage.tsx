@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app/routes";
-import emblem from "../../assets/emblem.png";
+
 
 export function HomePage() {
   return (
     <>
       <section className="hero">
         <div>
-          <h1>Ici, rien ne se jette : tout se répare, se donne et se partage.</h1>
+          <p className="accent">Réparer · Donner · Partager</p>
+          <h1>Ici, <mark>rien ne se jette</mark> : tout se répare, se donne et se partage.</h1>
           <p>Déposez vos objets, trouvez-en de nouveaux et venez apprendre à réparer lors de nos ateliers.</p>
           <p className="actions">
             <Link className="btn" to={ROUTES.workshops}>Voir les ateliers</Link>
@@ -15,10 +16,10 @@ export function HomePage() {
           </p>
         </div>
         <img
-          src={emblem}
-          alt="Chaise, lampe, livres et clé à molette entourés du symbole du recyclage"
-          className="emblem"
-        />
+  src="/emblem.png"
+  alt="Chaise, lampe, livres et clé à molette entourés du symbole du recyclage"
+  className="emblem"
+/>
       </section>
       <section className="grid">
         <Link className="paper card tile" to={ROUTES.items}>
@@ -37,4 +38,3 @@ export function HomePage() {
     </>
   );
 }
-

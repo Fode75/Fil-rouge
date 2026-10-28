@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Field } from "../ui/Field";
-import { login } from "../../services/auth";
+import { login, register as signUp } from "../../services/auth";
 
 export function AuthForm({ register = false }: { register?: boolean }) {
   const [error, setError] = useState("");
@@ -9,10 +9,12 @@ export function AuthForm({ register = false }: { register?: boolean }) {
     e.preventDefault();
     setError("");
     const f = new FormData(e.currentTarget);
+    const name = String(f.get("name") ?? "");
     const email = String(f.get("email"));
     const password = String(f.get("password"));
     try {
-      await login(email, password);
+      if (register) await signUp(name, email, password);
+      else await login(email, password);
     } catch (err) {
       setError((err as Error).message);
     }
@@ -38,4 +40,3 @@ export function AuthForm({ register = false }: { register?: boolean }) {
     </form>
   );
 }
-

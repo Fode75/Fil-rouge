@@ -15,10 +15,9 @@ export function WorkshopCard({ w }: { w: Workshop }) {
           {full ? "Complet" : `${w.max_capacity - w.spots_taken} places restantes`}
         </span>
       </p>
-      <Link className="btn" to={ROUTES.workshop(w.id)}>
+      <Link className="btn" to={ROUTES.workshop(String(w.id))}>
         Voir l'atelier
       </Link>
     </article>
   );
 }
-
